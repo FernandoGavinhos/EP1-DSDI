@@ -2,7 +2,7 @@ package br.com.partRepository.interfaces;
 
 import br.com.partRepository.classes.CList;
 
-public interface Part {
+public interface Part extends Comparable<Part>{
 	
 	//getters
 	public int getPartId();
