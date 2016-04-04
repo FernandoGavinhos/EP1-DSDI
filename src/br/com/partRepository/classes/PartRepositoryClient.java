@@ -33,7 +33,7 @@ public class PartRepositoryClient {
 		switch (cmd){
 		//comandos... [PAREI AQUI]
 		default:
-			System.out.println("Comando inválido.");
+			System.out.println("Invalid command.");
 		}
 	}
 }
