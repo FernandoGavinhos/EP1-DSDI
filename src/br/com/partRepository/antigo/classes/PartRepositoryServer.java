@@ -1,11 +1,11 @@
-package br.com.partRepository.classes;
+package br.com.partRepository.antigo.classes;
 
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.Set;
 import java.util.UUID;
 
-import br.com.partRepository.interfaces.*;
+import br.com.partRepository.antigo.interfaces.*;
 
 public class PartRepositoryServer implements PartRepository, Part {
 

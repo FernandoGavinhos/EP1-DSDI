@@ -1,9 +1,8 @@
-package br.com.partRepository.telas;
+package br.com.partRepository.antigo.telas;
 
 import java.io.IOException;
 
-import br.com.partRepository.classes.Terminal;
-import br.com.partRepository.interfaces.Screen;
+import br.com.partRepository.antigo.classes.Terminal;
 
 public class MainScreen implements Screen {
 

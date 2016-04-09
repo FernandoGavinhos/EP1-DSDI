@@ -1,4 +1,4 @@
-package br.com.partRepository.classes;
+package br.com.partRepository.antigo.classes;
 
 public class PartRepositoryClient {
 

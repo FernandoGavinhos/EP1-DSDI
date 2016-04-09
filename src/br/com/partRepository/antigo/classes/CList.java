@@ -1,9 +1,9 @@
-package br.com.partRepository.classes;
+package br.com.partRepository.antigo.classes;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.partRepository.interfaces.Part;
+import br.com.partRepository.antigo.interfaces.Part;
 
 public class CList {
 

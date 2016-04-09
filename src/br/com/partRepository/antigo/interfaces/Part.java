@@ -1,8 +1,8 @@
-package br.com.partRepository.interfaces;
+package br.com.partRepository.antigo.interfaces;
 
 import java.util.UUID;
 
-import br.com.partRepository.classes.CList;
+import br.com.partRepository.antigo.classes.CList;
 
 public interface Part{
 	

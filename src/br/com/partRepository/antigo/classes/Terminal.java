@@ -1,7 +1,7 @@
-package br.com.partRepository.classes;
+package br.com.partRepository.antigo.classes;
 
-import br.com.partRepository.interfaces.Screen;
-import br.com.partRepository.telas.MainScreen;
+import br.com.partRepository.antigo.telas.MainScreen;
+import br.com.partRepository.antigo.telas.Screen;
 
 public class Terminal {
 

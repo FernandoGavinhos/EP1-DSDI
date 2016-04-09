@@ -1,4 +1,4 @@
-package br.com.partRepository.classes;
+package br.com.partRepository.antigo.classes;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import br.com.partRepository.interfaces.Part;
-import br.com.partRepository.interfaces.PartRepository;
+import br.com.partRepository.antigo.interfaces.Part;
+import br.com.partRepository.antigo.interfaces.PartRepository;
 
 public class Repository implements PartRepository {
 	

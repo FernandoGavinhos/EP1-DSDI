@@ -1,4 +1,4 @@
-package br.com.partRepository.interfaces;
+package br.com.partRepository.antigo.telas;
 
 import java.io.IOException;
 

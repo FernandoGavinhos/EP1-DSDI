@@ -1,4 +1,4 @@
-package br.com.partRepository.interfaces;
+package br.com.partRepository.antigo.interfaces;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
