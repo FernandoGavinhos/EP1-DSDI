@@ -7,12 +7,12 @@ import java.util.Set;
 public interface PartRepository extends Remote{
 
 	//getters
-	String getName();
-	Set<Part> getComponents();
+	String getName() throws RemoteException;
+	Set<Part> getComponents() throws RemoteException;
 	
 	//setters
-	void setName(String repoName);
-	void setComponents(Set<Part> components);
+	void setName(String repoName) throws RemoteException;
+	void setComponents(Set<Part> components) throws RemoteException;
 	
 	//add a part into the repository
 	boolean addPart(Part component) throws RemoteException;

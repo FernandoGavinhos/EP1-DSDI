@@ -34,4 +34,8 @@ public class CList {
 		//if no component were found, add the component to the subcomponent list
 		this.cList.put(component, quant);
 	}
+	
+	public Map<Part, Integer> getCList(){
+		return this.cList;
+	}
 }

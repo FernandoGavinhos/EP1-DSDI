@@ -17,22 +17,22 @@ public class Repository implements PartRepository {
 	Set<Part> components;
 	
 	@Override
-	public String getName(){
+	public String getName() throws RemoteException{
 		return this.repoName;
 	}
 	
 	@Override
-	public Set<Part> getComponents(){
+	public Set<Part> getComponents() throws RemoteException{
 		return this.components;
 	}
 	
 	@Override
-	public void setName(String repoName){
+	public void setName(String repoName) throws RemoteException{
 		this.repoName = repoName;
 	}
 	
 	@Override
-	public void setComponents(Set<Part> components){
+	public void setComponents(Set<Part> components) throws RemoteException{
 		this.components = components;
 	}
 	
