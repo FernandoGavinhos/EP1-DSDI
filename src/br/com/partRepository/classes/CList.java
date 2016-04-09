@@ -35,6 +35,10 @@ public class CList {
 		this.cList.put(component, quant);
 	}
 	
+	public void clear(){
+		this.cList.clear();
+	}
+	
 	public Map<Part, Integer> getCList(){
 		return this.cList;
 	}

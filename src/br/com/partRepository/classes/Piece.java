@@ -78,5 +78,12 @@ public class Piece implements Part {
 		System.out.println(piece.toString());
 	}
 
+
+	@Override
+	public void setId(String id) {
+		this.id = UUID.fromString(id);
+		
+	}
+
 	
 }

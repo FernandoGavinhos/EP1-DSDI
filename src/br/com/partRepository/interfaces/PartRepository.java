@@ -18,7 +18,7 @@ public interface PartRepository extends Remote{
 	boolean addPart(Part component) throws RemoteException;
 	
 	//get a part by id
-	Part getPart(Part component) throws RemoteException;
+	Part getPart(String id) throws RemoteException;
 	
 	//list all parts into the repository
 	Set<Part> listAll() throws RemoteException;

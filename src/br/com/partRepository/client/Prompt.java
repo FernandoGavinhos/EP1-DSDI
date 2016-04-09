@@ -7,8 +7,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.UUID;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -177,7 +182,7 @@ public class Prompt extends JFrame{
 				PartRepository repo = (PartRepository) registry.lookup(remoteName);
 				this.repo = repo;
 			} catch (Exception e) {
-				System.out.println("Erroooooou");
+				//System.out.println("Erroooooou");
 				e.printStackTrace();
 			}
 		}
@@ -185,23 +190,63 @@ public class Prompt extends JFrame{
 	}
 	
 	public void listp(){
-		//TODO
+		if(repo == null) output.append("Favor conectar com o servidor antes");
+		else{
+			Set<Part> list;
+			try {
+				list = repo.listAll();
+				if(!list.isEmpty()){
+					Iterator<Part> it = list.iterator();
+					while(it.hasNext()){
+						Part aux = it.next();
+						output.append(aux.toString());
+					}
+				}
+				else output.append("Não há parts no repositório");
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+			
+		}
 	}
 	
 	public void getp(String[]cmd){
-		//TODO
+		if(repo == null) output.append("Favor conectar com o servidor antes");
+		else{
+			if(cmd.length == 2){
+				try {
+					Part test = repo.getPart(cmd[2]);
+					if(test != null){
+						this.component = test;
+						output.append("Achou");
+					}
+					else{
+						output.append("Não encontrado");
+					}
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+				
+			}
+			else output.append("Opção utilizada incorretamente, digite help");
+		}
 	}
 	
 	public void showp(){
-		//TODO
+		if(this.component != null) output.append(this.component.toString());
+		else output.append("Não há peça selecionada, digite help");
 	}
 	
 	public void clearList(){
-		//TODO
+		this.subPart.clear();
 	}
 	
 	public void addSubPart(String[]cmd){
-		//TODO
+		if(cmd.length != 2) output.append("Opção utilizada incorretamente, digite help");
+		else{
+			int n = Integer.parseInt(cmd[2]);
+			this.subPart.addComponent(component, n);
+		}
 	}
 	
 	public void addp(String[]cmd){
@@ -209,7 +254,7 @@ public class Prompt extends JFrame{
 	}
 	
 	public void quit(){
-		//TODO
+		this.dispose();
 	}
 	
 	public void wrong(){

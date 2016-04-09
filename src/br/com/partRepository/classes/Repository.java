@@ -50,7 +50,9 @@ public class Repository implements PartRepository {
 	}
 
 	@Override
-	public Part getPart(Part component) throws RemoteException {
+	public Part getPart(String id) throws RemoteException {
+		Part component = new Piece();
+		component.setId(id);
 		if(components.contains(component)){
 			Iterator<Part> i = components.iterator();
 			while(i.hasNext()){

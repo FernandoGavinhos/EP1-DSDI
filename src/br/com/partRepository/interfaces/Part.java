@@ -16,6 +16,7 @@ public interface Part{
 	public void setPartName(String partName);
 	public void setPartInfo(String partInfo);
 	public void AddComponent(Part Component, int quant);
+	public void setId(String id);
 	
 	@Override
 	boolean equals(Object obj);
