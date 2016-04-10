@@ -204,6 +204,7 @@ public class Prompt extends JFrame{
 					while(it.hasNext()){
 						Part aux = it.next();
 						output.append(aux.toString());
+						output.append("\n");
 					}
 				}
 				else output.append("Não há parts no repositório");
@@ -256,15 +257,19 @@ public class Prompt extends JFrame{
 	public void addp(String[]cmd){
 		if(repo == null) output.append("Favor conectar com o servidor antes");
 		else{
-			if(cmd.length != 3) output.append("Opção utilizada incorretamente, digite help");
+			if(cmd.length < 3) output.append("Opção utilizada incorretamente, digite help");
 			else{
 				Part p;
 				try {
 					p = new Piece();
 					p.setPartName(cmd[1]);
-					p.setPartInfo(cmd[2]);
+					String partInfo = new String();
+					for(int i = 2;i < cmd.length;i++){
+						partInfo = partInfo + " "+cmd[i];
+					}
+					p.setPartInfo(partInfo);
 					p.setComponentsList(this.subPart);
-					if(repo.addPart(p)) output.append("Inserção com sucesso");
+					if(repo.addPart(p)) output.append("Inserção com sucesso " + "Nome:" + p.getPartName() + " Descrição:" + p.getPartInfo());
 					else output.append("Erro na inserção");
 				
 				} catch (RemoteException e1) {

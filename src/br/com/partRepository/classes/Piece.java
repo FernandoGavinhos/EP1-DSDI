@@ -90,13 +90,13 @@ public class Piece extends UnicastRemoteObject implements Part {
 	}
 
 	@Override
-	public void setId(String id) {
+	public void setId(String id) throws RemoteException{
 		this.id = UUID.fromString(id);	
 	}	
 
 
 	@Override
-	public void setComponentsList(CList list) {
+	public void setComponentsList(CList list) throws RemoteException{
 		this.componentList = list;
 		
 	}

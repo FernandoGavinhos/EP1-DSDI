@@ -20,7 +20,7 @@ public interface Part extends Remote{
 	public void setPartInfo(String partInfo) throws RemoteException;
 	public void AddComponent(Part Component, int quant) throws RemoteException;
 	public void setId(String id) throws RemoteException;
-	public void setComponentsList(CList list);
+	public void setComponentsList(CList list) throws RemoteException;
 	
 //	@Override
 //	boolean equals(Object obj);
