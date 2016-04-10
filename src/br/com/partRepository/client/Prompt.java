@@ -201,9 +201,12 @@ public class Prompt extends JFrame{
 				list = repo.listAll();
 				if(list != null && !list.isEmpty()){
 					Iterator<Part> it = list.iterator();
+					output.append("ID:" + "\t" + "Nome:" + "\t" + "Descrição:");
+					output.append("\n");
 					while(it.hasNext()){
 						Part aux = it.next();
-						output.append(aux.toString());
+						output.append("ID:" + aux.getPartId().toString()+ "\t" + "Nome:" + aux.getPartName() + "\t" 
+						+ " Descrição:" + aux.getPartInfo());
 						output.append("\n");
 					}
 				}
@@ -226,7 +229,7 @@ public class Prompt extends JFrame{
 						output.append("Achou");
 					}
 					else{
-						output.append("Não encontrado");
+						output.append("Não encontrado a part de id " + cmd[1]);
 					}
 				} catch (RemoteException e) {
 					e.printStackTrace();
@@ -243,14 +246,23 @@ public class Prompt extends JFrame{
 	}
 	
 	public void clearList(){
-		this.subPart.clear();
+		if(this.subPart != null){
+			this.subPart.clear();
+			output.append("Todos elementos da lista de subparts removidos");
+		}
+		else output.append("A lista de subparts já está vazia");
 	}
 	
 	public void addSubPart(String[]cmd){
 		if(cmd.length != 2) output.append("Opção utilizada incorretamente, digite help");
 		else{
 			int n = Integer.parseInt(cmd[1]);
-			this.subPart.addComponent(component, n);
+			if(this.subPart == null) this.subPart = new CList();
+			if(this.component != null){
+				this.subPart.addComponent(component, n);
+				output.append("Part adicionada à lista de subParts");
+			}
+			else output.append("Não há Part para adicionar, consulte as opções no help");
 		}
 	}
 	
@@ -269,7 +281,11 @@ public class Prompt extends JFrame{
 					}
 					p.setPartInfo(partInfo);
 					p.setComponentsList(this.subPart);
-					if(repo.addPart(p)) output.append("Inserção com sucesso " + "Nome:" + p.getPartName() + " Descrição:" + p.getPartInfo());
+					if(repo.addPart(p)) {
+						output.append("Inserção com sucesso " + "ID:" + p.getPartId().toString() 
+								+ " Nome:" + p.getPartName() + " Descrição:" + p.getPartInfo());
+						
+					}
 					else output.append("Erro na inserção");
 				
 				} catch (RemoteException e1) {

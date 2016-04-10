@@ -55,12 +55,10 @@ public class Repository extends UnicastRemoteObject implements PartRepository {
 	public Part getPart(String id) throws RemoteException {
 		Part component = new Piece();
 		component.setId(id);
-		if(components.contains(component)){
-			Iterator<Part> i = components.iterator();
-			while(i.hasNext()){
-				Part found = i.next();
-				if(found.getPartId().equals(component)) return found;
-			}
+		Iterator<Part> i = components.iterator();
+		while(i.hasNext()){
+			Part found = i.next();
+			if(found.getPartId().equals(component.getPartId())) return found;
 		}
 		return null;
 	}
