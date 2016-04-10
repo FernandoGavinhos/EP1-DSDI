@@ -113,7 +113,7 @@ public class Prompt extends JFrame{
 	}
 		
 	public static void main(String[]args){
-		System.setProperty("java.security.policy","src\\config\\rmi.policy");
+		System.setProperty("java.security.policy","config\\rmi.policy");
 		new Prompt();
 	}
 
@@ -181,7 +181,7 @@ public class Prompt extends JFrame{
 		}
 		else{
 			try {
-				String remoteName = "rmi://127.0.0.1/"+cmd[1];
+				String remoteName = "rmi://127.0.0.1/" + cmd[1].toLowerCase();
 				PartRepository repo = (PartRepository) Naming.lookup(remoteName);
 				this.repo = repo;
 				output.append("Conectado no servidor "+remoteName);

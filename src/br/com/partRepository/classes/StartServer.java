@@ -20,7 +20,8 @@ public class StartServer {
 		try {
 			//stub = (PartRepository) UnicastRemoteObject.exportObject(computerRepo, 0);
 			//Registry registry = LocateRegistry.getRegistry();
-			Naming.rebind("servidor",new Repository("teste"));
+			//Naming.rebind("servidor",new Repository("teste"));
+			Naming.rebind(args[0].toLowerCase(),new Repository(args[0]));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
