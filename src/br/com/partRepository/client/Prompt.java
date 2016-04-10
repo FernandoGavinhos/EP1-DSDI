@@ -10,9 +10,8 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import javax.swing.JButton;
@@ -23,9 +22,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import br.com.partRepository.classes.CList;
+import br.com.partRepository.classes.Piece;
 import br.com.partRepository.interfaces.Part;
 import br.com.partRepository.interfaces.PartRepository;
-import br.com.partRepository.interfaces.Screen;
 
 public class Prompt extends JFrame{
 
@@ -60,7 +59,6 @@ public class Prompt extends JFrame{
 					String cmd = command.getText().toLowerCase();
 					String[]inputs = cmd.split(" ");
 					if(inputs.length < 1) wrong();
-					//TODO somente um teste, copia o que digitou no output
 					else{
 						if(inputs[0].equals("help")) printOptions();
 						else execute(inputs);
@@ -86,10 +84,14 @@ public class Prompt extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Somente um teste, desconsiderar, talvez nem precise do botão
 				if(!command.getText().trim().isEmpty()){
-					output.append(command.getText());
-					output.append("\n");
+					String cmd = command.getText().toLowerCase();
+					String[]inputs = cmd.split(" ");
+					if(inputs.length < 1) wrong();
+					else{
+						if(inputs[0].equals("help")) printOptions();
+						else execute(inputs);
+					}
 				}
 				command.setText("");
 				command.requestFocusInWindow();
@@ -192,7 +194,7 @@ public class Prompt extends JFrame{
 	public void listp(){
 		if(repo == null) output.append("Favor conectar com o servidor antes");
 		else{
-			Set<Part> list;
+			List<Part> list;
 			try {
 				list = repo.listAll();
 				if(!list.isEmpty()){
@@ -215,7 +217,7 @@ public class Prompt extends JFrame{
 		else{
 			if(cmd.length == 2){
 				try {
-					Part test = repo.getPart(cmd[2]);
+					Part test = repo.getPart(cmd[1]);
 					if(test != null){
 						this.component = test;
 						output.append("Achou");
@@ -244,13 +246,28 @@ public class Prompt extends JFrame{
 	public void addSubPart(String[]cmd){
 		if(cmd.length != 2) output.append("Opção utilizada incorretamente, digite help");
 		else{
-			int n = Integer.parseInt(cmd[2]);
+			int n = Integer.parseInt(cmd[1]);
 			this.subPart.addComponent(component, n);
 		}
 	}
 	
 	public void addp(String[]cmd){
-		//TODO
+		if(repo == null) output.append("Favor conectar com o servidor antes");
+		else{
+			if(cmd.length != 3) output.append("Opção utilizada incorretamente, digite help");
+			else{
+				Part p = new Piece();
+				p.setPartName(cmd[1]);
+				p.setPartInfo(cmd[2]);
+				p.setComponentsList(this.subPart);
+				try {
+					if(repo.addPart(p)) output.append("Inserção com sucesso");
+					else output.append("Erro na inserção");
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	public void quit(){

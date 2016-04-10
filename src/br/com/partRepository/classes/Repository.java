@@ -6,6 +6,8 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import br.com.partRepository.interfaces.Part;
@@ -14,7 +16,7 @@ import br.com.partRepository.interfaces.PartRepository;
 public class Repository implements PartRepository {
 	
 	String repoName;
-	Set<Part> components;
+	List<Part> components;
 	
 	@Override
 	public String getName() throws RemoteException{
@@ -22,7 +24,7 @@ public class Repository implements PartRepository {
 	}
 	
 	@Override
-	public Set<Part> getComponents() throws RemoteException{
+	public List<Part> getComponents() throws RemoteException{
 		return this.components;
 	}
 	
@@ -32,13 +34,13 @@ public class Repository implements PartRepository {
 	}
 	
 	@Override
-	public void setComponents(Set<Part> components) throws RemoteException{
+	public void setComponents(List<Part> components) throws RemoteException{
 		this.components = components;
 	}
 	
 	public Repository(String repoName) {
 		this.repoName = repoName;
-		components = new HashSet<Part>();
+		components = new LinkedList<Part>();
 	
 	}
 	
@@ -57,15 +59,14 @@ public class Repository implements PartRepository {
 			Iterator<Part> i = components.iterator();
 			while(i.hasNext()){
 				Part found = i.next();
-				if(found.equals(component)) return found;
+				if(found.getPartId().equals(component)) return found;
 			}
 		}
 		return null;
 	}
 
 	@Override
-	public Set<Part> listAll() throws RemoteException {
-		// TODO Auto-generated method stub
+	public List<Part> listAll() throws RemoteException {
 		if(!components.isEmpty()) return components;
 		return null;
 	}

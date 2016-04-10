@@ -85,5 +85,12 @@ public class Piece implements Part {
 		
 	}
 
+
+	@Override
+	public void setComponentsList(CList list) {
+		this.componentList = list;
+		
+	}
+
 	
 }
