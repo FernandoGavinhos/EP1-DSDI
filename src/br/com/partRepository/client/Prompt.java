@@ -134,7 +134,7 @@ public class Prompt extends JFrame{
 		output.append("\n");
 		output.append("quit " +"\t"+"encerra a execução");
 		output.append("\n");
-		output.append("addp 'nome' 'descrição da peça' " +"\t"+"adiciona uma peça ao repositório. A lista de subpeças"
+		output.append("addp \"nome\" \"descrição da peça\" " +"\t"+"adiciona uma peça ao repositório. A lista de subpeças"
 				+ "corrente é usada como lista de subcomponentes");
 		output.append("\n");
 		
