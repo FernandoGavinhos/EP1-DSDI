@@ -38,7 +38,7 @@ public class Prompt extends JFrame{
 	private PartRepository repo; //current repository
 	private Part component; //current part
 	private CList subPart; //current subPart
-	
+
 	public Prompt(){
 		super("Part Repository");
 		if(System.getSecurityManager() == null){
@@ -47,13 +47,13 @@ public class Prompt extends JFrame{
 		commandLabel = new JLabel("Comando: ");
 		commandLabel.setToolTipText("Digite o comando");
 		command = new JTextField();
-		
+
 		//listener - enter keyboard key
 		command.addKeyListener(new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e) {}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if(e.getKeyCode() == 10 && !command.getText().trim().isEmpty()){
@@ -67,22 +67,22 @@ public class Prompt extends JFrame{
 					output.append("\n");
 					command.setText("");
 					command.requestFocusInWindow();
-					
+
 				}
-				
+
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {}
 		});
-		
+
 		new JLabel("Saída");
 		output = new JTextArea();
 		output.setEditable(false);
-		
+
 		send = new JButton("Enviar");
 		send.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!command.getText().trim().isEmpty()){
@@ -98,7 +98,7 @@ public class Prompt extends JFrame{
 				command.requestFocusInWindow();
 			}
 		});
-		
+
 		window = getContentPane();
 		window.setLayout(new GridLayout(4, 2,10,10));
 		window.add(commandLabel);
@@ -106,12 +106,12 @@ public class Prompt extends JFrame{
 		window.add(send);
 		window.add(output);
 		window.add(new JScrollPane(output));
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 400);
 		setVisible(true);
 	}
-		
+
 	public static void main(String[]args){
 		System.setProperty("java.security.policy","config\\rmi.policy");
 		new Prompt();
@@ -139,7 +139,7 @@ public class Prompt extends JFrame{
 		output.append("addp \"nome\" \"descrição da peça\" " +"\t"+"adiciona uma peça ao repositório. A lista de subpeças"
 				+ "corrente é usada como lista de subcomponentes");
 		output.append("\n");
-		
+
 	}
 
 	public void execute(String[] cmd) {
@@ -174,25 +174,24 @@ public class Prompt extends JFrame{
 			break;
 		}
 	}
-	
+
 	public void bind(String[]cmd){
 		if(cmd.length != 2){
 			output.append("Opção utilizada incorretamente, digite help");
 		}
 		else{
+			String remoteName = "rmi://127.0.0.1/" + cmd[1].toLowerCase();
 			try {
-				String remoteName = "rmi://127.0.0.1/" + cmd[1].toLowerCase();
 				PartRepository repo = (PartRepository) Naming.lookup(remoteName);
 				this.repo = repo;
-				output.append("Conectado no servidor "+remoteName);
+				output.append("Conectado no servidor " + remoteName);
 			} catch (Exception e) {
-				//System.out.println("Erroooooou");
-				e.printStackTrace();
+				output.append("erro ao conectar ao servidor " + remoteName);
 			}
 		}
-		
+
 	}
-	
+
 	public void listp(){
 		if(repo == null) output.append("Favor conectar com o servidor antes");
 		else{
@@ -211,10 +210,10 @@ public class Prompt extends JFrame{
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 	}
-	
+
 	public void getp(String[]cmd){
 		if(repo == null) output.append("Favor conectar com o servidor antes");
 		else{
@@ -231,21 +230,21 @@ public class Prompt extends JFrame{
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
-				
+
 			}
 			else output.append("Opção utilizada incorretamente, digite help");
 		}
 	}
-	
+
 	public void showp(){
 		if(this.component != null) output.append(this.component.toString());
 		else output.append("Não há peça selecionada, digite help");
 	}
-	
+
 	public void clearList(){
 		this.subPart.clear();
 	}
-	
+
 	public void addSubPart(String[]cmd){
 		if(cmd.length != 2) output.append("Opção utilizada incorretamente, digite help");
 		else{
@@ -253,7 +252,7 @@ public class Prompt extends JFrame{
 			this.subPart.addComponent(component, n);
 		}
 	}
-	
+
 	public void addp(String[]cmd){
 		if(repo == null) output.append("Favor conectar com o servidor antes");
 		else{
@@ -271,21 +270,21 @@ public class Prompt extends JFrame{
 					p.setComponentsList(this.subPart);
 					if(repo.addPart(p)) output.append("Inserção com sucesso " + "Nome:" + p.getPartName() + " Descrição:" + p.getPartInfo());
 					else output.append("Erro na inserção");
-				
+
 				} catch (RemoteException e1) {
 					e1.printStackTrace();
 				}
-				
+
 			}
 		}
 	}
-	
+
 	public void quit(){
 		this.dispose();
 	}
-	
+
 	public void wrong(){
 		output.append("Opção inválida: para verificar as opções digite help");
 	}
-	
+
 }
