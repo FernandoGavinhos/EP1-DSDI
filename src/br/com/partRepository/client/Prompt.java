@@ -113,7 +113,7 @@ public class Prompt extends JFrame{
 	}
 		
 	public static void main(String[]args){
-		System.setProperty("java.security.policy","C:\\Users\\AdrianoDev\\git\\teste\\EP1-DSDI\\src\\config\\rmi.policy");
+		System.setProperty("java.security.policy","C:\\Users\\Guilherme\\workspace\\EP1-DSDI\\src\\config\\rmi.policy");
 		new Prompt();
 	}
 
@@ -199,7 +199,7 @@ public class Prompt extends JFrame{
 			List<Part> list;
 			try {
 				list = repo.listAll();
-				if(!list.isEmpty()){
+				if(list != null && !list.isEmpty()){
 					Iterator<Part> it = list.iterator();
 					while(it.hasNext()){
 						Part aux = it.next();
