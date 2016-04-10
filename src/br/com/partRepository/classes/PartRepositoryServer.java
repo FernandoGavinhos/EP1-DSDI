@@ -76,13 +76,26 @@ public class PartRepositoryServer implements PartRepository, Part {
 		return false;
 	}
 
+// estava dando erro
+//	@Override
+//	public Part getPart(Part component) throws RemoteException {
+//		return null;
+//	}
+
 	@Override
-	public Part getPart(Part component) throws RemoteException {
+	public Set<Part> listAll() throws RemoteException {
 		return null;
 	}
 
 	@Override
-	public Set<Part> listAll() throws RemoteException {
+	public void setId(String id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Part getPart(String id) throws RemoteException {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }
