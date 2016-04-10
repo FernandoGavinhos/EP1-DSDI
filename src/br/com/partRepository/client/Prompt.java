@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -180,9 +181,9 @@ public class Prompt extends JFrame{
 		else{
 			try {
 				String remoteName = cmd[1];
-				Registry registry = LocateRegistry.getRegistry("TODO");//TODO
-				PartRepository repo = (PartRepository) registry.lookup(remoteName);
+				PartRepository repo = (PartRepository) Naming.lookup(remoteName);
 				this.repo = repo;
+				output.append("Conectado no servidor "+remoteName);
 			} catch (Exception e) {
 				//System.out.println("Erroooooou");
 				e.printStackTrace();
