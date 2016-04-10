@@ -24,15 +24,21 @@ public class CList {
 	public void addComponent(Part component, int quant){
 		
 		//iterates over each entry of the subcomponent list searching for a component with the same name of the component to be added
-		for (Map.Entry<Part, Integer> entry : this.cList.entrySet()){
-			//if a component with the same name of the component to be added is found, increment it's quantity e exit from the method
-			if(entry.getKey().getPartName() == component.getPartName()){
-				entry.setValue(entry.getValue() + quant);
-				return;
+		
+		try{
+			for (Map.Entry<Part, Integer> entry : this.cList.entrySet()){
+				//if a component with the same name of the component to be added is found, increment it's quantity e exit from the method
+				if(entry.getKey().getPartName() == component.getPartName()){
+					entry.setValue(entry.getValue() + quant);
+					return;
+				}
 			}
+			//if no component were found, add the component to the subcomponent list
+			this.cList.put(component, quant);
+		}catch(Exception e){
+			e.printStackTrace();
 		}
-		//if no component were found, add the component to the subcomponent list
-		this.cList.put(component, quant);
+		
 	}
 	
 	public void clear(){

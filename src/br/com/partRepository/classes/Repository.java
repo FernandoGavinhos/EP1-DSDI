@@ -13,7 +13,7 @@ import java.util.Set;
 import br.com.partRepository.interfaces.Part;
 import br.com.partRepository.interfaces.PartRepository;
 
-public class Repository implements PartRepository {
+public class Repository extends UnicastRemoteObject implements PartRepository {
 	
 	String repoName;
 	List<Part> components;
@@ -38,7 +38,7 @@ public class Repository implements PartRepository {
 		this.components = components;
 	}
 	
-	public Repository(String repoName) {
+	public Repository(String repoName) throws RemoteException {
 		this.repoName = repoName;
 		components = new LinkedList<Part>();
 	
@@ -70,22 +70,4 @@ public class Repository implements PartRepository {
 		if(!components.isEmpty()) return components;
 		return null;
 	}
-	
-	public static void main(String[]args){
-		if(System.getSecurityManager() == null){
-			System.setSecurityManager(new SecurityManager());
-		}
-		
-		PartRepository computerRepo = new Repository("Teste");
-		PartRepository stub;
-		try {
-			stub = (PartRepository) UnicastRemoteObject.exportObject(computerRepo, 0);
-			Registry registry = LocateRegistry.getRegistry();
-			registry.rebind(computerRepo.getName(), stub);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 }
