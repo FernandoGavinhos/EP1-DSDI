@@ -113,7 +113,7 @@ public class Prompt extends JFrame{
 	}
 		
 	public static void main(String[]args){
-		System.setProperty("java.security.policy","C:\\Users\\Guilherme\\workspace\\EP1-DSDI\\src\\config\\rmi.policy");
+		System.setProperty("java.security.policy","src\\config\\rmi.policy");
 		new Prompt();
 	}
 
