@@ -1,4 +1,4 @@
-package br.com.partRepository.classes;
+/*package br.com.partRepository.classes;
 
 import java.rmi.RemoteException;
 import java.util.LinkedList;
@@ -98,4 +98,4 @@ public class PartRepositoryServer implements PartRepository, Part {
 		// TODO Auto-generated method stub
 		return null;
 	}
-}
+}*/

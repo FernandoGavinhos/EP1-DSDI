@@ -256,16 +256,19 @@ public class Prompt extends JFrame{
 		else{
 			if(cmd.length != 3) output.append("Opção utilizada incorretamente, digite help");
 			else{
-				Part p = new Piece();
-				p.setPartName(cmd[1]);
-				p.setPartInfo(cmd[2]);
-				p.setComponentsList(this.subPart);
+				Part p;
 				try {
+					p = new Piece();
+					p.setPartName(cmd[1]);
+					p.setPartInfo(cmd[2]);
+					p.setComponentsList(this.subPart);
 					if(repo.addPart(p)) output.append("Inserção com sucesso");
 					else output.append("Erro na inserção");
-				} catch (RemoteException e) {
-					e.printStackTrace();
+				
+				} catch (RemoteException e1) {
+					e1.printStackTrace();
 				}
+				
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-package br.com.partRepository.classes;
+/*package br.com.partRepository.classes;
 
 public class PartRepositoryClient {
 
@@ -36,4 +36,4 @@ public class PartRepositoryClient {
 			System.out.println("Invalid command.");
 		}
 	}
-}
+}*/

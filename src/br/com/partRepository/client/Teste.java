@@ -4,6 +4,7 @@ import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.jar.Attributes.Name;
 
@@ -26,7 +27,7 @@ public class Teste {
 			boolean addOk = p.addPart(part);
 			if(addOk){
 				System.out.println("Adicionou a part "+part);
-				Set<Part> comp = p.getComponents();
+				List<Part> comp = p.getComponents();
 				Iterator<Part> it = comp.iterator();
 				while(it.hasNext()){
 					Part aux = it.next();
