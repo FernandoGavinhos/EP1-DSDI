@@ -13,6 +13,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.swing.JButton;
@@ -24,6 +25,7 @@ import javax.swing.JTextField;
 
 import br.com.partRepository.classes.CList;
 import br.com.partRepository.classes.Piece;
+import br.com.partRepository.classes.SubComponent;
 import br.com.partRepository.interfaces.Part;
 import br.com.partRepository.interfaces.PartRepository;
 
@@ -200,13 +202,24 @@ public class Prompt extends JFrame{
 				list = repo.listAll();
 				if(list != null && !list.isEmpty()){
 					Iterator<Part> it = list.iterator();
-					output.append("ID:" + "\t" + "Nome:" + "\t" + "Descrição:");
-					output.append("\n");
 					while(it.hasNext()){
 						Part aux = it.next();
-						output.append("ID:" + aux.getPartId().toString()+ "\t" + "Nome:" + aux.getPartName() + "\t" 
-						+ " Descrição:" + aux.getPartInfo());
+						output.append("ID: " + aux.getPartId().toString() +
+								"\tNome: " + aux.getPartName() +
+								"\tDescrição: " + aux.getPartInfo());
 						output.append("\n");
+
+						//subcomponents
+						if(aux.getComponentList() != null){
+							Iterator<SubComponent> i = aux.getComponentList().getCList().iterator();
+							while (i.hasNext()){
+								SubComponent subI = i.next();
+								output.append("\t Subcomponente: ID: " + subI.getPart().getPartId().toString() +
+										"\tNome: " + subI.getPart().getPartName() +
+										"\tQuantidade: " + subI.getQuantity());
+								output.append("\n");
+							}
+						}
 					}
 				}
 				else output.append("Não há parts no repositório");
@@ -232,6 +245,8 @@ public class Prompt extends JFrame{
 					}
 				} catch (RemoteException e) {
 					e.printStackTrace();
+				} catch (IllegalArgumentException e2){
+					output.append("O id deve possuir a estrutura '00000008-0009-000a-000b-00000000000c', contendo números hexadecimais");
 				}
 
 			}
@@ -240,8 +255,15 @@ public class Prompt extends JFrame{
 	}
 
 	public void showp(){
-		if(this.component != null) output.append(this.component.toString());
-		else output.append("Não há peça selecionada, digite help");
+		try{
+			if(this.component != null) output.append(
+					"ID: " + this.component.getPartId().toString() +
+					"\tNome: " + this.component.getPartName() +
+					"\tDescrição: " + this.component.getPartInfo());
+			else output.append("Não há peça selecionada, digite help");
+		} catch(RemoteException e){
+			e.printStackTrace();
+		}
 	}
 
 	public void clearList(){
@@ -283,7 +305,7 @@ public class Prompt extends JFrame{
 					if(repo.addPart(p)) {
 						output.append("Inserção com sucesso " + "ID:" + p.getPartId().toString() 
 								+ " Nome:" + p.getPartName() + " Descrição:" + p.getPartInfo());
-						
+
 					}
 					else output.append("Erro na inserção");
 

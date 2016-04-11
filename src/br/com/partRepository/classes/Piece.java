@@ -56,21 +56,6 @@ public class Piece extends UnicastRemoteObject implements Part {
 		this.componentList.addComponent(Component, quant);		
 	}
 	
-	@Override
-	public String toString(){
-		StringBuilder sb = new StringBuilder();
-		sb.append("Id: "+this.id+" \n partName: "+this.partName+" \n partInfo: "+this.partInfo+"\n");
-		try{
-			for (Map.Entry<Part, Integer> entry : this.getComponentList().getCList().entrySet()){
-				sb.append("component: "+entry.getKey().getPartName()+ " quant: "+entry.getValue()+"\n");	
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return sb.toString();
-		
-	}
-	
 	//Only Test
 	public static void main(String[] args) {
 		try{
@@ -92,7 +77,7 @@ public class Piece extends UnicastRemoteObject implements Part {
 	@Override
 	public void setId(String id) throws RemoteException{
 		this.id = UUID.fromString(id);	
-	}	
+	}
 
 
 	@Override
