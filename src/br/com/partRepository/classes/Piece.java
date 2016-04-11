@@ -82,7 +82,12 @@ public class Piece extends UnicastRemoteObject implements Part {
 
 	@Override
 	public void setComponentsList(CList list) throws RemoteException{
-		this.componentList = list;
+		if(list != null){
+			for(int i = 0;i < list.getCList().size();i++){
+				SubComponent aux = list.getCList().get(i);
+				this.componentList.addComponent(aux.getPart(), aux.getQuantity());
+			}
+		}
 		
 	}
 
